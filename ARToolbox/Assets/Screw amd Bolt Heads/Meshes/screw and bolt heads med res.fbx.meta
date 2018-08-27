@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 4ce69758587d24fe7b2360987160bd61
+timeCreated: 1430654958
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Flat Hex
+    100002: Flat Phillips
+    100004: Flat Plain
+    100006: Flat Torx
+    100008: Hex Bolt Head
+    100010: Hex Bolt Head 2
+    100012: Hex Bolt Head 3
+    100014: Hex Cap
+    100016: Hex Cap With Detail
+    100018: Pan Cap
+    100020: Pan Combo
+    100022: Pan Flat
+    100024: Pan Hex
+    100026: Pan Phillips
+    100028: Pan Tamper Resistant Hex
+    100030: Pan Torx
+    100032: Pan Torx Tamper Resistant
+    100034: Plain head
+    100036: //RootNode
+    100038: Washer - Finish
+    100040: Washer Fender
+    100042: Washer Narrow
+    100044: Washer Std
+    400000: Flat Hex
+    400002: Flat Phillips
+    400004: Flat Plain
+    400006: Flat Torx
+    400008: Hex Bolt Head
+    400010: Hex Bolt Head 2
+    400012: Hex Bolt Head 3
+    400014: Hex Cap
+    400016: Hex Cap With Detail
+    400018: Pan Cap
+    400020: Pan Combo
+    400022: Pan Flat
+    400024: Pan Hex
+    400026: Pan Phillips
+    400028: Pan Tamper Resistant Hex
+    400030: Pan Torx
+    400032: Pan Torx Tamper Resistant
+    400034: Plain head
+    400036: //RootNode
+    400038: Washer - Finish
+    400040: Washer Fender
+    400042: Washer Narrow
+    400044: Washer Std
+    2300000: Flat Hex
+    2300002: Flat Phillips
+    2300004: Flat Plain
+    2300006: Flat Torx
+    2300008: Hex Bolt Head
+    2300010: Hex Bolt Head 2
+    2300012: Hex Bolt Head 3
+    2300014: Hex Cap
+    2300016: Hex Cap With Detail
+    2300018: Pan Cap
+    2300020: Pan Combo
+    2300022: Pan Flat
+    2300024: Pan Hex
+    2300026: Pan Phillips
+    2300028: Pan Tamper Resistant Hex
+    2300030: Pan Torx
+    2300032: Pan Torx Tamper Resistant
+    2300034: Plain head
+    2300036: Washer - Finish
+    2300038: Washer Fender
+    2300040: Washer Narrow
+    2300042: Washer Std
+    3300000: Flat Hex
+    3300002: Flat Phillips
+    3300004: Flat Plain
+    3300006: Flat Torx
+    3300008: Hex Bolt Head
+    3300010: Hex Bolt Head 2
+    3300012: Hex Bolt Head 3
+    3300014: Hex Cap
+    3300016: Hex Cap With Detail
+    3300018: Pan Cap
+    3300020: Pan Combo
+    3300022: Pan Flat
+    3300024: Pan Hex
+    3300026: Pan Phillips
+    3300028: Pan Tamper Resistant Hex
+    3300030: Pan Torx
+    3300032: Pan Torx Tamper Resistant
+    3300034: Plain head
+    3300036: Washer - Finish
+    3300038: Washer Fender
+    3300040: Washer Narrow
+    3300042: Washer Std
+    4300000: Washer Std
+    4300002: Washer Narrow
+    4300004: Washer Fender
+    4300006: Washer - Finish
+    4300008: Plain head
+    4300010: Pan Torx Tamper Resistant
+    4300012: Pan Torx
+    4300014: Pan Tamper Resistant Hex
+    4300016: Pan Phillips
+    4300018: Pan Hex
+    4300020: Pan Flat
+    4300022: Pan Combo
+    4300024: Pan Cap
+    4300026: Hex Cap With Detail
+    4300028: Hex Cap
+    4300030: Hex Bolt Head 3
+    4300032: Hex Bolt Head 2
+    4300034: Hex Bolt Head
+    4300036: Flat Torx
+    4300038: Flat Plain
+    4300040: Flat Phillips
+    4300042: Flat Hex
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
