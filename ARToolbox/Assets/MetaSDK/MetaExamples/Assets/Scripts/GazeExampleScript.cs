@@ -35,6 +35,14 @@ namespace Meta.Examples
     /// </summary>
     public class GazeExampleScript : MetaBehaviour, IGazeStartEvent, IGazeEndEvent
     {
+
+        public delegate void GazeAction();
+        public static event GazeAction onGazeStart;
+        public static event GazeAction onGazeStop;
+        public bool isQRScene;
+
+        public QualityControlVariant qualityControlVariantChoice;
+        public static QualityControlVariant qualityControlVariantBeeingGazedOn;
         /// <summary>
         /// The material applied to the object for rendering.
         /// </summary>
@@ -87,7 +95,11 @@ namespace Meta.Examples
         public void OnGazeStart()
         {
             _bIsGazing = true;
-            codeRenderer.isGazing = true;
+            qualityControlVariantBeeingGazedOn = qualityControlVariantChoice;
+            if (onGazeStart != null)
+                onGazeStart.Invoke();
+            if (isQRScene)
+                codeRenderer.isGazing = true; //change!!!
         }
 
         /// <summary>
@@ -96,8 +108,11 @@ namespace Meta.Examples
         public void OnGazeEnd()
         {
             _bIsGazing = false;
-            codeRenderer.isGazing = false;
-          
+            if (onGazeStop != null)
+                onGazeStop.Invoke();
+            if (isQRScene)
+                codeRenderer.isGazing = false;
+
         }
 
         /// <summary>
@@ -122,3 +137,5 @@ namespace Meta.Examples
         }
     }
 }
+
+public enum QualityControlVariant { FULL, QUICK }

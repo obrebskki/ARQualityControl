@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-
 using Vuforia;
-
 using System.Threading;
-
 using ZXing;
 using ZXing.QrCode;
 using ZXing.Common;
@@ -53,13 +50,7 @@ public class QRCodeReader : MonoBehaviour
 
     private IEnumerator InitializeCamera()
     {
-        // Waiting a little seem to avoid the Vuforia's crashes.
         yield return new WaitForSeconds(1.25f);
-
-        // var isFrameFormatSet = CameraDevice.Instance.SetFrameFormat(Image.PIXEL_FORMAT.RGB888, true);
-        // Debug.Log(String.Format("FormatSet : {0}", isFrameFormatSet));
-
-        // Force autofocus.
         var isAutoFocus = CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
         Image.PIXEL_FORMAT mPixelFormat = Image.PIXEL_FORMAT.GRAYSCALE; // Need Grayscale for Editor
 
@@ -119,7 +110,7 @@ public class QRCodeReader : MonoBehaviour
             cap.SetActive(false);
 
             itemNo.text = "Item no: " + ERPMockedData.EUVIC_QR.itemNo.ToString();
-            itemName.text = "Name: " + ERPMockedData.EUVIC_QR.itemName;
+            itemName.text = ERPMockedData.EUVIC_QR.itemName;
             quantity.text = "Quantity: " + ERPMockedData.EUVIC_QR.quantity.ToString();
             oldest.text = "Oldest:" + ERPMockedData.EUVIC_QR.oldest.ToString();
             shippingTo.text = "Shipping to:" + ERPMockedData.EUVIC_QR.shippingTo;
@@ -172,9 +163,7 @@ public class QRCodeReader : MonoBehaviour
             currentCodeData = data.Text;
             Debug.Log("found data: " + data.Text);
             isDecoding = false;
-            // OnCodeFind.Invoke();
-            //StartCoroutine(NewCodeFound());
-            // NewCodeFound(data.Text);
+        
         }
         else
         {
@@ -183,9 +172,6 @@ public class QRCodeReader : MonoBehaviour
         }
     }
 
-
-
-
     public IEnumerator NewCodeFound()
     {
         Debug.Log("I'm here");
@@ -193,8 +179,6 @@ public class QRCodeReader : MonoBehaviour
         screw.SetActive(true);
         yield return new WaitForSeconds(2);
     }
-
-
 }
 
 
