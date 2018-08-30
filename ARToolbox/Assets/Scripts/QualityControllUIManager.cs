@@ -12,10 +12,9 @@ public class QualityControllUIManager : MonoBehaviour
     public void ToggleNoGoDescription()
     {
         Debug.Log("Toggle");
-        noGoDescription.SetActive(false);
+        noGoDescription.SetActive(!noGoDescription.activeSelf);
         Debug.Log("After toggle: " + noGoDescription.activeSelf);
     }
-
 
 
 }
