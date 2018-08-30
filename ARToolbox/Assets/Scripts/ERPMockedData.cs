@@ -15,7 +15,7 @@ public class ERPMockedData : MonoBehaviour
         oldest = new DateTime(2015, 12, 2),
         shippingTo = "Maria Kowalska",
         shippingDate = DateTime.Now,
-        address = "Husarii polskiej 5, 43-100 Tychy, Poland",
+        address = "Marii Skłodowskiej 5, 43-100 Tychy, Poland",
         responsible = "Jan Kowalski"
     };
 
@@ -42,5 +42,7 @@ public class ERPData
     public DateTime shippingDate;
     public string address;
     public string responsible;
+    public int goAmount;
+    public int noGoAmount;
 
 }

@@ -40,7 +40,7 @@ namespace Meta.Examples
         public static event GazeAction onGazeStart;
         public static event GazeAction onGazeStop;
         public bool isQRScene;
-
+        
         public QualityControlVariant qualityControlVariantChoice;
         public static QualityControlVariant qualityControlVariantBeeingGazedOn;
         /// <summary>
