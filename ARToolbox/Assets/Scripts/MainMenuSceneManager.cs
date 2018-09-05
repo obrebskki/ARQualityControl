@@ -9,12 +9,6 @@ public class MainMenuSceneManager : MonoBehaviour
     private Image gazeIndicator;
     bool gazeStopped = false;
 
-    private void OnEnable()
-    {
-        Meta.Examples.GazeExampleScript.onGazeStart += UserStartedGazing;
-        Meta.Examples.GazeExampleScript.onGazeStop += UserStoppedGazing;
-
-    }
 
     void UserStartedGazing()
     {

@@ -18,8 +18,6 @@ public class QRCodeReader : MonoBehaviour
     private bool cameraInitialized;
     private BarcodeReader barCodeReader;
     private bool isDecoding = false;
-    public bool firstIf = false;
-    public bool cameraFeedNull = false;
 
     public UnityEngine.UI.Text itemNo;
     public UnityEngine.UI.Text itemName;
@@ -32,17 +30,33 @@ public class QRCodeReader : MonoBehaviour
 
 
     public GameObject Info;
-    public GameObject screw;
-    public GameObject cap;
+
+    [SerializeField]
+    private GameObject euvicModel;
+    [SerializeField]
+    private GameObject euvicTwoModel;
+
+    [SerializeField]
+    private GameObject euvicModelFQC;
+    [SerializeField]
+    private GameObject euvicTwoModelFQC;
 
     public bool isGazing = false;
+    GameObject modelToSetup;
 
-    private string currentCodeData;
-    bool foundEuvic = false;
-    bool foundOther = false;
-    public SceneManager sceneManager;
+    public static string currentCodeData;
+
+    bool QRCodeBeenFound = false;
+    ERPData currentDataFound;
+
+    public static float timeSpentOnBox;
+    // public static int boxesChecked;
+
+
+
     void Start()
     {
+        timeSpentOnBox = 0;
         barCodeReader = new BarcodeReader();
         StartCoroutine(InitializeCamera());
         Debug.Log("camera instance: " + CameraDevice.Instance);
@@ -74,23 +88,18 @@ public class QRCodeReader : MonoBehaviour
 
     private void Update()
     {
+        timeSpentOnBox += Time.deltaTime;
         if (cameraInitialized && !isDecoding)
         {
-            firstIf = true;
             try
             {
                 var cameraFeed = CameraDevice.Instance.GetCameraImage(Image.PIXEL_FORMAT.GRAYSCALE);
 
                 if (cameraFeed == null)
                 {
-                    cameraFeedNull = true;
                     return;
                 }
-                else
-                {
-                    cameraFeedNull = false;
 
-                }
                 ThreadPool.QueueUserWorkItem(new WaitCallback(DecodeQr), cameraFeed);
 
             }
@@ -99,47 +108,52 @@ public class QRCodeReader : MonoBehaviour
                 Debug.LogError(e.Message);
             }
         }
-        else
-        {
-            firstIf = false;
-        }
-        if (foundEuvic)
-        {
-            Info.SetActive(true);
-            screw.SetActive(true);
-            cap.SetActive(false);
 
-            itemNo.text = "Item no: " + ERPMockedData.EUVIC_QR.itemNo.ToString();
-            itemName.text = ERPMockedData.EUVIC_QR.itemName;
-            quantity.text = "Quantity: " + ERPMockedData.EUVIC_QR.quantity.ToString();
-            oldest.text = "Oldest:" + ERPMockedData.EUVIC_QR.oldest.ToString();
-            shippingTo.text = "Shipping to:" + ERPMockedData.EUVIC_QR.shippingTo;
-            shippingDate.text = "Shipping date: " + ERPMockedData.EUVIC_QR.shippingDate;
-            address.text = "Shipping address:" + ERPMockedData.EUVIC_QR.address;
-            responsible.text = "Responsible: " + ERPMockedData.EUVIC_QR.responsible;
-        }
-        else if (foundOther)
-        {
-            Info.SetActive(true);
-            screw.SetActive(false);
-            cap.SetActive(true);
-            itemNo.text = "Item no: " + ERPMockedData.BARCODE.itemNo.ToString();
-            itemName.text = "Item name: " + ERPMockedData.BARCODE.itemName;
-            quantity.text = "Quantity: " + ERPMockedData.BARCODE.quantity.ToString();
-            oldest.text = "Oldest:" + ERPMockedData.BARCODE.oldest.ToString();
-            shippingTo.text = "Shipping to:" + ERPMockedData.BARCODE.shippingTo;
-            shippingDate.text = "Shipping date: " + ERPMockedData.BARCODE.shippingDate;
-            address.text = "Shipping address:" + ERPMockedData.BARCODE.address;
-            responsible.text = "Responsible: " + ERPMockedData.BARCODE.responsible;
-        }
+
         if (isGazing)
         {
             Info.SetActive(false);
-            screw.SetActive(false);
-            cap.SetActive(false);
-            foundEuvic = false;
-            foundOther = false;
+            euvicModel.SetActive(false);
+            euvicTwoModel.SetActive(false);
+            QRCodeBeenFound = false;
+
             currentCodeData = "";
+        }
+
+        if (QRCodeBeenFound)
+        {
+            SetupCurrentQRData();
+            Info.SetActive(true);
+            euvicModel.SetActive(false);
+            euvicTwoModel.SetActive(false);
+            if (currentDataFound.item_identifier == "EUVIC")
+            {
+                QualityControllUIManager.codeRead = CODE_READ.EUVIC;
+                switch (QualityControllUIManager.choosenQualityControlVariant)
+                {
+                    case QualityControlVariant.FULL:
+                        euvicModelFQC.SetActive(true);
+                        break;
+                    case QualityControlVariant.QUICK:
+                        euvicModel.SetActive(true);
+                        break;
+                }
+            }
+
+            else if (currentDataFound.item_identifier == "EUVIC2")
+            {
+                QualityControllUIManager.codeRead = CODE_READ.EUVIC_TWO;
+
+                switch (QualityControllUIManager.choosenQualityControlVariant)
+                {
+                    case QualityControlVariant.FULL:
+                        euvicTwoModelFQC.SetActive(true);
+                        break;
+                    case QualityControlVariant.QUICK:
+                        euvicTwoModel.SetActive(true);
+                        break;
+                }
+            }
         }
     }
 
@@ -150,34 +164,37 @@ public class QRCodeReader : MonoBehaviour
         var data = barCodeReader.Decode(cameraFeed.Pixels, cameraFeed.BufferWidth, cameraFeed.BufferHeight, RGBLuminanceSource.BitmapFormat.Gray8);
         if (data != null && data.Text != currentCodeData)
         {
-            if (data.Text == "EUVIC")
-            {
-                foundEuvic = true;
-                foundOther = false;
-            }
-            else if (data.Text == "705632085943")
-            {
-                foundOther = true;
-                foundEuvic = false;
-            }
-            currentCodeData = data.Text;
-            Debug.Log("found data: " + data.Text);
-            isDecoding = false;
-        
-        }
-        else
-        {
-            isDecoding = false;
 
+            ERPMockedData mockedData = new ERPMockedData();
+            foreach (ERPData erpData in mockedData.mockedList)
+            {
+                if (data.Text == erpData.item_identifier)
+                {
+                    currentDataFound = erpData;
+                    currentCodeData = erpData.item_identifier;
+                    QRCodeBeenFound = true;
+                    currentCodeData = "";
+                }
+            }
         }
+
+        isDecoding = false;
+
     }
 
-    public IEnumerator NewCodeFound()
+    void SetupCurrentQRData()
     {
-        Debug.Log("I'm here");
-        Info.SetActive(true);
-        screw.SetActive(true);
-        yield return new WaitForSeconds(2);
+        QRCodeBeenFound = false;
+
+
+        itemNo.text = "item no: " + currentDataFound.itemNo.ToString();
+        itemName.text = currentDataFound.itemName;
+        quantity.text = "quantity: " + currentDataFound.quantity.ToString();
+        oldest.text = "oldest " + currentDataFound.oldest.ToString();
+        shippingTo.text = "shipping to: " + currentDataFound.shippingTo;
+        shippingDate.text = "shipping date: " + currentDataFound.shippingDate;
+        address.text = "address: " + currentDataFound.address;
+        responsible.text = "responsible: " + currentDataFound.responsible;
     }
 }
 
